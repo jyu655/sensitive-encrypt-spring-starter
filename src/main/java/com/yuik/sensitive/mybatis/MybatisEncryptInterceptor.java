@@ -12,6 +12,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Iterator;
@@ -197,7 +198,11 @@ public class MybatisEncryptInterceptor implements Interceptor {
         }
 
         @Override
-        public void close() {
+        public void close() throws IOException {
+            // DESIGN-NOTE: MyBatis 的 Cursor 接口未重声明 close()（仅继承 Closeable），
+            // 因此 delegate.close() 声明了受检异常 IOException —— 必须向上声明，
+            // 否则编译报 "unreported exception IOException"。
+            // 业务侧 try-with-resources（Closeable 语义）可正常使用，无需额外处理。
             delegate.close();
         }
     }
