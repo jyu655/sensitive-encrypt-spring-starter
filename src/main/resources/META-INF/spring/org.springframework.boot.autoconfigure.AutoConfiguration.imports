@@ -1,0 +1,2 @@
+# Spring Boot 3.x 自动装配注册
+com.yuik.sensitive.boot.SensitiveEncryptAutoConfiguration

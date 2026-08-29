@@ -1,0 +1,59 @@
+# ============================================================
+# 敏感数据透明加解密组件 · Git 忽略规则（IntelliJ IDEA 开发环境）
+# ============================================================
+
+# ---------- IntelliJ IDEA ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+# 如需共享 IDEA 代码风格 / 运行配置，可放开以下白名单（并移除上面的 .idea/ 整目录忽略）
+# !.idea/codeStyles/
+# !.idea/runConfigurations/
+
+# ---------- Maven ----------
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ---------- Java ----------
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+# JVM 堆转储可能包含密钥/敏感数据，禁止入库（安全红线 R3 配套）
+*.hprof
+*.jfr
+
+# ---------- 日志 ----------
+*.log
+logs/
+
+# ---------- 本地配置 / 密钥（安全红线 R1：密钥永不入库） ----------
+*.local
+.env
+.env.*
+application-local.yml
+application-local.properties
+config/application-local.*
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ---------- 其他编辑器 / 工具 ----------
+.vscode/
+*.swp
+*~

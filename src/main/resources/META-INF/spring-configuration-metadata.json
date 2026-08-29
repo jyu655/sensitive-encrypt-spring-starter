@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "sensitive.encrypt.decrypt-fail-placeholder",
+      "type": "java.lang.String",
+      "defaultValue": "***",
+      "description": "解密失败（密文被篡改/脏数据/历史密钥缺失）时返回的脱敏占位符。注意：密钥类配置禁止写入配置文件，必须经 KeyProvider 提供。"
+    }
+  ]
+}
