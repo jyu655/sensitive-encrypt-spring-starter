@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -148,6 +149,8 @@ class SensitiveEncryptIntegrationTest {
                     count++;
                 }
                 assertEquals(2, count);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

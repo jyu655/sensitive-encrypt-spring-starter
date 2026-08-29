@@ -25,7 +25,8 @@ public final class TestKeys {
     }
 
     public static void installEnvVersion(String alias, String version) {
-        System.setProperty(envName(alias) + "_VERSION", version);
+        // 与 EnvKeyProvider 一致：SENSITIVE_KEY_VERSION_{ALIAS}
+        System.setProperty(versionEnvName(alias), version);
     }
 
     public static void installHistoricalKey(String alias, String version, String keyB64) {
@@ -34,11 +35,15 @@ public final class TestKeys {
 
     public static void uninstall(String alias) {
         System.clearProperty(envName(alias));
-        System.clearProperty(envName(alias) + "_VERSION");
+        System.clearProperty(versionEnvName(alias));
     }
 
     private static String envName(String alias) {
         return "SENSITIVE_KEY_" + alias.toUpperCase().replace('-', '_');
+    }
+
+    private static String versionEnvName(String alias) {
+        return "SENSITIVE_KEY_VERSION_" + alias.toUpperCase().replace('-', '_');
     }
 
     private static byte[] keyBytes(int n) {
