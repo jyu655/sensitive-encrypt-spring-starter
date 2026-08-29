@@ -34,6 +34,7 @@ class AesGcmEncryptorTest {
     void tearDown() {
         keyManager.destroy();
         TestKeys.uninstall(TestKeys.ALIAS);
+        TestKeys.uninstall(TestKeys.API_ALIAS);
     }
 
     @Test
@@ -89,10 +90,18 @@ class AesGcmEncryptorTest {
     }
 
     @Test
-    void wrongAliasKeyFailsDecryption() {
+    void unconfiguredAliasFailsDecryption() {
+        // 密钥已被 CachedKeyManager 缓存（卸载系统属性不影响缓存），因此改用"从未配置的别名"验证失败路径
         String cipher = encryptor.encrypt("with-key-1", TestKeys.ALIAS);
-        TestKeys.uninstall(TestKeys.ALIAS);
-        assertThrows(Exception.class, () -> encryptor.decrypt(cipher, TestKeys.ALIAS));
+        assertThrows(Exception.class, () -> encryptor.decrypt(cipher, "not-configured-alias"));
+    }
+
+    @Test
+    void decryptWithDifferentKeyFails() {
+        // 另一别名配置了不同密钥：GCM Tag 校验失败 → DecryptionException
+        TestKeys.installEnvKey(TestKeys.API_ALIAS, TestKeys.KEY_B64_OTHER);
+        String cipher = encryptor.encrypt("with-key-1", TestKeys.ALIAS);
+        assertThrows(DecryptionException.class, () -> encryptor.decrypt(cipher, TestKeys.API_ALIAS));
     }
 
     @Test
