@@ -3,8 +3,8 @@ package com.yuik.sensitive.crypto;
 import com.yuik.sensitive.key.CachedKeyManager;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKeySpec;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
